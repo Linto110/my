@@ -1,0 +1,66 @@
+<html>
+  <head>
+    <title>Calender</title>
+    <style>
+      body{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+      }
+    </style>
+  </head>
+  <body bgcolor="">
+    <center>
+      <h1>Calender</h1>
+    </center>
+    <div class="inpu">
+    <label>Year :</label> <input type="text" id="year"/><br />
+    <br>
+    <button type="submit" style="margin-left: 50px;" onclick="displayCalendar()">Submit</button></div>
+    <div id="result"></div>
+    <script>
+      function calendar() {
+        const year = document.getElementById("year").value;
+        const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+        const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec",];
+        let calendar = "";
+        for (let month = 0; month < 12; month++) {
+          const firstDay = new Date(year, month, 1).getDay();
+          const daysInMonth = new Date(year, month + 1, 0).getDate();
+          const lastDay = new Date(year, month + 1, 0).getDay();
+          //To add Month heading
+          calendar += `<table border='1'><tr><th colspan="7" style="background-color:LightGray;">${months[month]} ${year}</th></tr><tr>`;
+          //To add days
+          for (let day of days) {
+            calendar +="<th style='background-color: lightblue;'>" + day + "</th>";
+          }
+          calendar += "</tr><tr>";
+          // To add spaces
+          for (let i = 0; i < firstDay; i++) {
+            calendar += "<td></td>";
+          }
+          //To print days
+          for (let date = 1; date <= daysInMonth; date++) {
+            calendar += `<td>${date}</td>`;
+            if ((date + firstDay) % 7 == 0) {
+              calendar += "</tr><tr>";
+            }
+          }
+          //To add spaces at the end
+          if (lastDay != 6) {
+            for (i = lastDay + 1; i <= 6; i++) {
+              calendar += "<td></td>";
+            }
+          }
+          calendar += "</tr></table><br>";
+        }
+        return calendar;
+      }
+      function displayCalendar() {
+        const result = document.getElementById("result");
+        result.innerHTML = calendar();
+      }
+    </script>
+  </body>
+</html>

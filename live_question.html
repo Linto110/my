@@ -1,0 +1,161 @@
+<html>
+  <head>
+    <title>question</title>
+    <style>
+      body {
+        box-sizing: content-box;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        background-color: aqua;
+      }
+      .q-paper {
+        width: 600px;
+        border: 2px solid;
+        background-color: antiquewhite;
+      }
+      .top {
+        display: flex;
+        flex-direction: row;
+        padding: 0 10 0 10;
+        align-items: baseline;
+        justify-content: space-between;
+      }
+      .q-details {
+        display: flex;
+        gap: 20px;
+        justify-content: right;
+        margin: 5px;
+      }
+      .line {
+        border: 1px solid;
+      }
+      #answer {
+        display: flex;
+        flex-direction: column;
+        margin: 0 10 0 10;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="q-paper">
+      <div class="top">
+        <p class="q-code">D0657</p>
+        <h1>General Question Quiz</h1>
+        <p class="s-code">00567</p>
+      </div>
+      <div class="q-details">
+        <p>Total score=10</p>
+        <p>Time: 20min</p>
+      </div>
+      <hr class="line" />
+      <div id="answer"></div>
+      <button type="submit" id="submit">Submit</button>
+    </div>
+    <script>
+      const questions = [
+        {
+          question: "Html Stands for?",
+          options: [
+            "Hyper Text Markup Language",
+            "High Text Markup Language",
+            "Hyper Tabular Markup Language",
+            "None of the above",
+          ],
+          correct: 0,
+        },
+        {
+          question: "Css Stands for?",
+          options: [
+            "Creative Style Sheets",
+            "Cascading Style Sheets",
+            "Computer Style Sheets",
+            "Colorful Style Sheets",
+          ],
+          correct: 1,
+        },
+        {
+          question: "JavaScript is a ___-side programming language?",
+          options: ["Client", "Server", "Both", "None"],
+          correct: 2,
+        },
+        {
+          question: "Which HTML tag is used to define an internal style sheet?",
+          options: ["<style>", "<css>", "<script>", "<link>"],
+          correct: 0,
+        },
+        {
+          question: "Which symbol is used for comments in JavaScript?",
+          options: ["//", "/* */", "#", "<!-- -->"],
+          correct: 0,
+        },
+        {
+          question:
+            "Which property is used to change the background color in CSS?",
+          options: ["background-color", "color", "bgcolor", "background"],
+          correct: 0,
+        },
+        {
+          question:
+            "Which of the following is not a valid data type in JavaScript?",
+          options: ["Number", "String", "Boolean", "Character"],
+          correct: 3,
+        },
+        {
+          question: "How can you include JavaScript in an HTML file?",
+          options: ["<script>", "<js>", "<javascript>", "<include>"],
+          correct: 0,
+        },
+        {
+          question: "What is the default position property in CSS?",
+          options: ["static", "relative", "absolute", "fixed"],
+          correct: 0,
+        },
+        {
+          question: "Which HTML attribute is used to define inline styles?",
+          options: ["style", "class", "id", "css"],
+          correct: 0,
+        },
+      ];
+
+      function generateQuiz() {
+        const quizContainer = document.getElementById("answer");
+        questions.forEach((q, index) => {
+          const quizElement = document.createElement("div");
+          quizElement.innerHTML = `
+    <p>${index + 1}. ${q.question}</p>
+    <ul type="none"> 
+      ${q.options
+        .map(
+          (option, optionIndex) => `
+            <li>
+              <input type="radio" name="question-${index}" value="${optionIndex}">
+              ${option.replace(/</g, "&lt;").replace(/>/g, "&gt;")}
+            </li>`
+        )
+        .join("")}
+    </ul>`;
+          quizContainer.appendChild(quizElement);
+        });
+      }
+
+      function calculateResult() {
+        let score = 0;
+        questions.forEach((q, index) => {
+          const selectedOption = document.querySelector(
+            `input[name="question-${index}"]:checked`
+          );
+          if (selectedOption && parseInt(selectedOption.value) === q.correct) {
+            score++;
+          }
+        });
+        alert(`Your score is ${score} out of ${questions.length}`);
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        generateQuiz();
+        const click = document.getElementById("submit");
+        click.addEventListener("click", calculateResult);
+      });
+    </script>
+  </body>
+</html>

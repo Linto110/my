@@ -1,0 +1,465 @@
+bash: /home/user/.bashrc: line 137: syntax error: unexpected end of file
+user@user-H410M-H-V2:~$ sudo mysql -u root -p
+[sudo] password for user: 
+Sorry, try again.
+[sudo] password for user: 
+Sorry, try again.
+[sudo] password for user: 
+sudo: 3 incorrect password attempts
+user@user-H410M-H-V2:~$ sudo mysql -u root -p
+[sudo] password for user: 
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.41-0ubuntu0.22.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create table employee(emp_id int,name varchar(100),city varchar(100),dob
+    -> int,adhar_no int);
+ERROR 1046 (3D000): No database selected
+mysql> create database jesse
+    -> create database jesse;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'create database jesse' at line 2
+mysql> create database jesse;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| FILES              |
+| information_schema |
+| jesse              |
+| mysql              |
+| performance_schema |
+| sreya              |
+| sys                |
++--------------------+
+7 rows in set (0.01 sec)
+
+mysql> use jesse;
+Database changed
+mysql> create table employee(emp_id int,name varchar(100),city varchar(100),dob
+    -> int,adhar_no int);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql>  desc employee;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| emp_id   | int          | YES  |     | NULL    |       |
+| name     | varchar(100) | YES  |     | NULL    |       |
+| city     | varchar(100) | YES  |     | NULL    |       |
+| dob      | int          | YES  |     | NULL    |       |
+| adhar_no | int          | YES  |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> CREATE TABLE student(
+    ->     -> roll_no INT PRIMARY KEY,
+    ->     -> Name VARCHAR(10)NOT NULL,
+    ->     -> age INT CHECK (age BETWEEN 0 AND 99) NOT NULL,
+    ->     -> address VARCHAR(10),
+    ->     -> gender  CHAR(1) DEFAULT 'm'
+    ->     -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-> roll_no INT PRIMARY KEY,
+    -> Name VARCHAR(10)NOT NULL,
+    -> age INT CHEC' at line 2
+mysql> CREATE TABEL student(roll_no INT PRIMARY KEY,Name VARCHAR(10)NOT NULL,age INT CHECK (age BETWEEN 0 AND 99) NOT NULL,address VARCHAR(10),gender CHAR(1) DEFAULT 'm');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'TABEL student(roll_no INT PRIMARY KEY,Name VARCHAR(10)NOT NULL,age INT CHECK (ag' at line 1
+mysql> CREATE TABLE student(roll_no INT PRIMARY KEY,Name VARCHAR(10)NOT NULL,age
+ INT CHECK (age BETWEEN 0 AND 99) NOT NULL,address VARCHAR(10),gender CHAR(1) DEFAULT 'm');
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> desc student;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| roll_no | int         | NO   | PRI | NULL    |       |
+| Name    | varchar(10) | NO   |     | NULL    |       |
+| age     | int         | NO   |     | NULL    |       |
+| address | varchar(10) | YES  |     | NULL    |       |
+| gender  | char(1)     | YES  |     | m       |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> create temporary  table student1 AS SELECT  * FROM student;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student1;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| roll_no | int         | NO   |     | NULL    | NULL  |
+| Name    | varchar(10) | NO   |     | NULL    | NULL  |
+| age     | int         | NO   |     | NULL    | NULL  |
+| address | varchar(10) | YES  |     | NULL    | NULL  |
+| gender  | char(1)     | YES  |     | m       | NULL  |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> create table employee1 AS SELECT * FROM  employee;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee1;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| emp_id   | int          | YES  |     | NULL    |       |
+| name     | varchar(100) | YES  |     | NULL    |       |
+| city     | varchar(100) | YES  |     | NULL    |       |
+| dob      | int          | YES  |     | NULL    |       |
+| adhar_no | int          | YES  |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> create table student(roll int primary key,age int,name varchar(10));
+ERROR 1050 (42S01): Table 'student' already exists
+mysql> remove student;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'remove student' at line 1
+mysql> remove studentfrom jesse;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'remove studentfrom jesse' at line 1
+mysql> from jesse remove student;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from jesse remove student' at line 1
+mysql> drop table student;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create table student(roll int primary key,age int,name varchar(10));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create table student(roll int primary key,age int,name varchar(10));
+ERROR 1050 (42S01): Table 'student' already exists
+mysql> DROP TABLE employees;
+ERROR 1051 (42S02): Unknown table 'jesse.employees'
+mysql> DROP TABLE student;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create table student(roll int primary key,age int,name varchar(10));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc student;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| roll  | int         | NO   | PRI | NULL    |       |
+| age   | int         | YES  |     | NULL    |       |
+| name  | varchar(10) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> insert into student values(1,21,'aisha');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> desc student;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| roll  | int         | NO   | PRI | NULL    |       |
+| age   | int         | YES  |     | NULL    |       |
+| name  | varchar(10) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from student;
++------+------+-------+
+| roll | age  | name  |
++------+------+-------+
+|    1 |   21 | aisha |
++------+------+-------+
+1 row in set (0.00 sec)
+
+mysql> insert into student values(21,22,'jesse');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student values(22,21,'amita');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from student;
++------+------+-------+
+| roll | age  | name  |
++------+------+-------+
+|    1 |   21 | aisha |
+|   21 |   22 | jesse |
+|   22 |   21 | amita |
++------+------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into student values(4,22,'null')
+    -> insert into student values(4,22,'null');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'insert into student values(4,22,'null')' at line 2
+mysql> insert into student values(4,22,'null');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from student;
++------+------+-------+
+| roll | age  | name  |
++------+------+-------+
+|    1 |   21 | aisha |
+|    4 |   22 | null  |
+|   21 |   22 | jesse |
+|   22 |   21 | amita |
++------+------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into student (roll,name) values(5,'minu');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from student;
++------+------+-------+
+| roll | age  | name  |
++------+------+-------+
+|    1 |   21 | aisha |
+|    4 |   22 | null  |
+|    5 | NULL | minu  |
+|   21 |   22 | jesse |
+|   22 |   21 | amita |
++------+------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from student where age=22,21;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',21' at line 1
+mysql> select * from student where age=22&&21;
++------+------+-------+
+| roll | age  | name  |
++------+------+-------+
+|    4 |   22 | null  |
+|   21 |   22 | jesse |
++------+------+-------+
+2 rows in set, 1 warning (0.00 sec)
+
+mysql> select * from student where age=22 and age=21;
+Empty set (0.00 sec)
+
+mysql> select * from student where age=22 && age=21;
+Empty set, 1 warning (0.00 sec)
+
+mysql> select * from student where age=22 && 21;
++------+------+-------+
+| roll | age  | name  |
++------+------+-------+
+|    4 |   22 | null  |
+|   21 |   22 | jesse |
++------+------+-------+
+2 rows in set, 1 warning (0.00 sec)
+
+mysql> select * from student where age=22 and 21;
++------+------+-------+
+| roll | age  | name  |
++------+------+-------+
+|    4 |   22 | null  |
+|   21 |   22 | jesse |
++------+------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from student where age=22 and age=21;
+Empty set (0.00 sec)
+
+mysql> selct * from student;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'selct * from student' at line 1
+mysql> select * from student;
++------+------+-------+
+| roll | age  | name  |
++------+------+-------+
+|    1 |   21 | aisha |
+|    4 |   22 | null  |
+|    5 | NULL | minu  |
+|   21 |   22 | jesse |
+|   22 |   21 | amita |
++------+------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select  from student where age=22 and age=21;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from student where age=22 and age=21' at line 1
+mysql> select from student where age=22 and age=21;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from student where age=22 and age=21' at line 1
+mysql> select from student where age=22&&21;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from student where age=22&&21' at line 1
+mysql> select * from student where age=22 and 21;
++------+------+-------+
+| roll | age  | name  |
++------+------+-------+
+|    4 |   22 | null  |
+|   21 |   22 | jesse |
++------+------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from student where age=22 and age=21;
+Empty set (0.00 sec)
+
+mysql> select * from student where age=22 or age=21;
++------+------+-------+
+| roll | age  | name  |
++------+------+-------+
+|    1 |   21 | aisha |
+|    4 |   22 | null  |
+|   21 |   22 | jesse |
+|   22 |   21 | amita |
++------+------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select * from student where age!=21;
++------+------+-------+
+| roll | age  | name  |
++------+------+-------+
+|    4 |   22 | null  |
+|   21 |   22 | jesse |
++------+------+-------+
+2 rows in set (0.00 sec)
+
+mysql> update student set age=18 where roll=1;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from student;
++------+------+-------+
+| roll | age  | name  |
++------+------+-------+
+|    1 |   18 | aisha |
+|    4 |   22 | null  |
+|    5 | NULL | minu  |
+|   21 |   22 | jesse |
+|   22 |   21 | amita |
++------+------+-------+
+5 rows in set (0.00 sec)
+
+mysql> create tabel customer(id int primary key,name varchar(10),city varchar(10));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'tabel customer(id int primary key,name varchar(10),city varchar(10))' at line 1
+mysql> create table customer(id int primary key,name varchar(10),city varchar(10));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc customer;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | NO   | PRI | NULL    |       |
+| name  | varchar(10) | YES  |     | NULL    |       |
+| city  | varchar(10) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> create table order(or_id int primary key,cus_id int,or_date date,status vmysql> reate table order(or_id int primary key,cus_id int,or_date date,status varchar(10),constraint c1 references(cus_id)references cust_id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'reate table order(or_id int primary key,cus_id int,or_date date,status varchar(1' at line 1
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'reate table orders(or_id int primary key,cus_id int,or_date date,status varchar(' at line 1
+mysql> create table orders(or_id int primary key,cus_id int,or_date date,status varchar(10),FOREIGN KEY(cus_id)REFERENCES customer(id));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create table student(roll int primary key,name varchar(100),age int);
+ERROR 1050 (42S01): Table 'student' already exists
+mysql> drop table stduent;
+ERROR 1051 (42S02): Unknown table 'jesse.stduent'
+mysql> drop table student;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create table student(roll int primary key,name varchar(100),age int);
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create table mark(roll_no int FOREIGN KEY,mark1 int,mark2 int,mark3 int,grade varchar(50));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FOREIGN KEY,mark1 int,mark2 int,mark3 int,grade varchar(50))' at line 1
+mysql> CREATE TABLE mark (roll_no INT,mark1 INT,mark2 INT,mark3 INT,grade VARCHAR(50),FOREIGN KEY (roll_no) REFERENCES student(roll_no)  -- Assuming "student" is the referenced table);
+    -> CREATE TABLE mark (roll_no INT,mark1 INT,mark2 INT,mark3 INT,grade VARCHAR(50),FOREIGN KEY (roll_no) REFERENCES student(roll_no)  -- Assuming "student" is the referenced table);
+    -> CREATE TABLE mark (roll_no INT,mark1 INT,mark2 INT,mark3 INT,grade VARCHAR(50),FOREIGN KEY (roll_no) REFERENCES student(roll_no); 
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CREATE TABLE mark (roll_no INT,mark1 INT,mark2 INT,mark3 INT,grade VARCHAR(50),F' at line 2
+mysql> create table mark(roll int references student(roll),mark1 int,mark2 int,mark3 int,grade varchar(50));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> create table mark(roll int references student(roll),mark1 int,mark2 int,mark3 int,grade varchar(50));
+ERROR 1050 (42S01): Table 'mark' already exists
+mysql> drop table customer;
+ERROR 3730 (HY000): Cannot drop table 'customer' referenced by a foreign key constraint 'orders_ibfk_1' on table 'orders'.
+mysql> desc customer;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | NO   | PRI | NULL    |       |
+| name  | varchar(10) | YES  |     | NULL    |       |
+| city  | varchar(10) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> desc mark
+    -> ;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| roll  | int         | YES  |     | NULL    |       |
+| mark1 | int         | YES  |     | NULL    |       |
+| mark2 | int         | YES  |     | NULL    |       |
+| mark3 | int         | YES  |     | NULL    |       |
+| grade | varchar(50) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> create table mark(roll int,mark1 int,mark2 int,mark3 int,grade varchar(50),foreign key(roll)References student(roll));
+ERROR 1050 (42S01): Table 'mark' already exists
+mysql> truncate mark;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> drop table mark;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create table mark(roll int,mark1 int,mark2 int,mark3 int,grade varchar(50),foreign key(roll)References student(roll));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc mark;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| roll  | int         | YES  | MUL | NULL    |       |
+| mark1 | int         | YES  |     | NULL    |       |
+| mark2 | int         | YES  |     | NULL    |       |
+| mark3 | int         | YES  |     | NULL    |       |
+| grade | varchar(50) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> insert into student values(6,'shifu',38);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from student;
++------+-------+------+
+| roll | name  | age  |
++------+-------+------+
+|    6 | shifu |   38 |
++------+-------+------+
+1 row in set (0.00 sec)
+
+mysql> insert into student values96,'ikkachi',87);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'values96,'ikkachi',87)' at line 1
+mysql> insert into student values(96,'ikkachi',87);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from student;
++------+---------+------+
+| roll | name    | age  |
++------+---------+------+
+|    6 | shifu   |   38 |
+|   96 | ikkachi |   87 |
++------+---------+------+
+2 rows in set (0.00 sec)
+
+mysql> insert into mark values(6,67,89,43,"A");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into mark values(17,67,89,43,"A");
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`jesse`.`mark`, CONSTRAINT `mark_ibfk_1` FOREIGN KEY (`roll`) REFERENCES `student` (`roll`))
+mysql> CREATE TABLE mark (roll_no INT,mark1 INT,mark2 INT,mark3 INT,grade VARCHAR(50),FOREIGN KEY (roll_no) REFERENCES student(roll_no)  -- Assuming "student" is the referenced table);
+

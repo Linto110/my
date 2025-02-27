@@ -1,0 +1,112 @@
+2.  DML COMMANDS
+
+a)DML -INSERT
+
+Insert values in INVOICE database. 
+
+Value insertion................
+-> customer_id  10001, 10002, 10003 etc
+-> in_id   101,102, 103, etc
+-> name of city (calicut, ekm, tvm, etc..)
+-> some quantity should be less than 2
+-> product names....pen, pencil, soap, etc..
+-> some phone number should be null
+-> some price between 50 rs and 150 rs
+-> inv_date between 1st jan 2023 to 31st dec 2024
+-> some customers purchase more than 2 products
+
+mysql> insert into Customer values(1001,'vassem','koodaranhi','ekm',8589912982);
+mysql> insert into Customer (id,name,address,city) values(1002,'nihal','thara','ekm');
+mysql> insert into Customer values(1003,'rohu','parathodu','ekm',8756789745);
+mysql> insert into Customer values(1003,'ayshu','pallithodu','calicut',8638789745);
+mysql> insert into Customer values(1005,'ami','asu','trissur',9432787485);
+
+mysql> select * from Customer;
++-------+--------+----------------------+---------+------------+
+| id    | name   | address              | city    | ph_no      |
++-------+--------+----------------------+---------+------------+
+| 10001 | vassem | koodaranhi           | ekm     | 8589912982 |
+| 10002 | nihal  | thara                | ekm     |       NULL |
+| 10003 | rohu   | parathodu            | ekm     | 8756789745 |
+| 10004 | ayshu  | pallithodu           | calicut | 8638789745 |
+| 10005 | ami    | asu                  | trissur | 9432787485 |
++-------+--------+----------------------+---------+------------+
+5 rows in set (0.00 sec)
+
+mysql> insert into Product values(201,'pen',10);
+mysql> insert into Product values(202,'soap',75);
+mysql> insert into Product values(203,'plate',90);
+
+mysql> select* from Product;
++-----+-------+-------+
+| pid | pname | price |
++-----+-------+-------+
+| 201 | pen   | 10.00 |
+| 202 | soap  | 75.00 |
+| 203 | plate | 90.00 |
++-----+-------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into Invoice_master values(101,10001,'2023-2-4');
+mysql> insert into Invoice_master values(102,10002,'2023-6-18');
+mysql> insert into Invoice_master values(103,10003,'2023-6-28');
+mysql> select * from Invoice_master;
++--------+--------+------------+
+| inv_id | cus_id | inv_date   |
++--------+--------+------------+
+|    101 |  10001 | 2023-02-04 |
+|    102 |  10002 | 2023-06-18 |
+|    103 |  10003 | 2023-06-28 |
++--------+--------+------------+
+3 rows in set (0.00 sec)
+
+
+mysql> insert into Invoice_item values(101,201,5);
+mysql> insert into Invoice_item values(102,202,1);
+mysql> insert into Invoice_item values(103,203,4);
+mysql> insert into Invoice_item values(103,202,4);
+mysql> select * from Invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    101 |  201 |        5 |
+|    102 |  202 |        1 |
+|    103 |  203 |        4 |
+|    103 |  202 |        4 |
++--------+------+----------+
+4 rows in set (0.00 sec)
+
+
+b) DML - UPDATE 
+
+1. Update the price of a particular product. 
+mysql> update Product set price=30 where pid=202;
+mysql> select * from Product;
++-----+-------+-------+
+| pid | pname | price |
++-----+-------+-------+
+| 201 | pen   | 10.00 |
+| 202 | soap  | 30.00 |
+| 203 | plate | 90.00 |
++-----+-------+-------+
+
+2. Change the name of city ‘calicut’ to ‘kozhikode’ in the customer table. 
+mysql> update Customer set city="kozhikode" where city="calicut";
+
+mysql> select * from Customer;
++-------+--------+----------------------+-----------+------------+
+| id    | name   | address              | city      | ph_no      |
++-------+--------+----------------------+-----------+------------+
+| 10001 | vassem | koodaranhi kozhikode | ekm       | 8589912982 |
+| 10002 | nihal  | thara                | ekm       |       NULL |
+| 10003 | rohu   | parathodu            | ekm       | 8756789745 |
+| 10004 | ayshu  | pallithodu           | kozhikode | 8638789745 |
+| 10005 | ami    | asu                  | trissur   | 9432787485 |
++-------+--------+----------------------+-----------+------------+
+3. Update all prices with 2% of its original price. 
+
+mysql> update Product set price=price*1.02;
+Query OK, 3 rows affected (0.00 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+4. Change the address, city, phone number of a particular customer. 

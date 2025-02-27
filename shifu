@@ -1,0 +1,125 @@
+ans.update product set price=price*1.02;
+Query OK, 5 rows affected (0.00 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+mysql> select*from product;
++-----+--------------+-------+
+| pid | pname        | price |
++-----+--------------+-------+
+|   1 | pen          |    51 |
+|   2 | diary        |   143 |
+|   3 | handwash     |    61 |
+|   4 | detergent    |   152 |
+|   5 | water bottle |    82 |
++-----+--------------+-------+
+5 rows in set (0.00 sec)
+
+4.
+ans.select*from customer;
++-----+---------+------------------+------------+------------+
+| id  | name    | address          | city       | ph_no      |
++-----+---------+------------------+------------+------------+
+| 100 | fathima | panikkaveetil(h) | thrissur   | 9745689099 |
+| 101 | eshaan  | pulimootil(h)    | kozhikode  | 9723489099 |
+| 102 | subair  | pulikkal(h)      | ekm        | 8606164393 |
+| 103 | fabija  | mangalam(h)      | tvm        | 9544122600 |
+| 104 | surumin | puthanparambil   | kannur     | 9786234215 |
+| 105 | aswin   | pavaratty(h)     | thrissur   | NULL       |
+| 106 | nahyan  | malekkal(h)      | malappuram | NULL       |
++-----+---------+------------------+------------+------------+
+7 rows in set (0.00 sec)
+
+5.
+ans.update invoice_item set quantity=10 where inv_id=1001 and pid=1;                                                                                 Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|   1001 |    1 |       10 |
+|   1002 |    2 |        2 |
+|   1003 |    3 |        1 |
+|   1004 |    4 |        3 |
+|   1005 |    5 |        7 |
+|   1001 |    3 |        4 |
+|   1003 |    2 |        7 |
+|   1005 |    4 |        5 |
++--------+------+----------+
+8 rows in set (0.00 sec)
+
+DML-DELETE
+1.
+ans.
+
+
+2.
+ans.delete from invoice_item where quantity<2;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select*from invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|   1001 |    1 |       10 |
+|   1002 |    2 |        2 |
+|   1004 |    4 |        3 |
+|   1005 |    5 |        7 |
+|   1001 |    3 |        4 |
+|   1003 |    2 |        7 |
+|   1005 |    4 |        5 |
++--------+------+----------+
+7 rows in set (0.00 sec)
+
+3.
+ans.delete from product where pname='pen' and pid=1001;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select*from product;
++-----+--------------+-------+
+| pid | pname        | price |
++-----+--------------+-------+
+|   1 | pen          |    51 |
+|   2 | diary        |   143 |
+|   3 | handwash     |    61 |
+|   4 | detergent    |   152 |
+|   5 | water bottle |    82 |
++-----+--------------+-------+
+5 rows in set (0.00 sec)
+
+4.
+ans.delete from customer where ph_no is null;
+Query OK, 2 rows affected (0.00 sec)
+
+mysql> select*from customer;
++-----+---------+------------------+-----------+------------+
+| id  | name    | address          | city      | ph_no      |
++-----+---------+------------------+-----------+------------+
+| 100 | fathima | panikkaveetil(h) | thrissur  | 9745689099 |
+| 101 | eshaan  | pulimootil(h)    | kozhikode | 9723489099 |
+| 102 | subair  | pulikkal(h)      | ekm       | 8606164393 |
+| 103 | fabija  | mangalam(h)      | tvm       | 9544122600 |
+| 104 | surumin | puthanparambil   | kannur    | 9786234215 |
++-----+---------+------------------+-----------+------------+
+5 rows in set (0.00 sec)
+
+
+5.
+ans.
+
+
+6.
+ans.delete from invoice_item order by quantity desc limit 2;
+Query OK, 2 rows affected (0.01 sec)
+
+mysql> select*from invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|   1002 |    2 |        2 |
+|   1004 |    4 |        3 |
+|   1001 |    3 |        4 |
+|   1003 |    2 |        7 |
+|   1005 |    4 |        5 |
++--------+------+----------+
+5 rows in set (0.0 sec)

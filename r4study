@@ -1,0 +1,433 @@
+bash: /home/user/.bashrc: line 137: syntax error: unexpected end of file
+user@user-H410M-H-V2:~$ CREATE USER user1@'localhost' IDENTIFIED BY 'user1';
+CREATE: command not found
+user@user-H410M-H-V2:~$ sudo mysql -u root -p
+[sudo] password for user: 
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 8.0.41-0ubuntu0.22.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> CREATE USER user1@'localhost' IDENTIFIED BY 'user1';
+ERROR 1819 (HY000): Your password does not satisfy the current policy requirements
+mysql> CREATE USER user1@'localhost' IDENTIFIED BY 'user1';
+ERROR 1819 (HY000): Your password does not satisfy the current policy requirements
+mysql> mysql> CREATE USER user1@'localhost' IDENTIFIED BY 'user1';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysql> CREATE USER user1@'localhost' IDENTIFIED BY 'user1'' at line 1
+mysql> ERROR 1819 (HY000): Your password does not satisfy the current policy requirements
+    -> mysql> CREATE USER user1@'localhost' IDENTIFIED BY 'user1';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ERROR 1819 (HY000): Your password does not satisfy the current policy requiremen' at line 1
+mysql> ERROR 1819 (HY000): Your password does not satisfy the current policy requirements
+    -> mysql> 
+    -> 
+    -> 
+    -> 
+    -> 
+    -> 
+    -> 
+    -> 
+    -> 
+    -> ^C
+mysql> mysql> CREATE USER user1@'localhost' IDENTIFIED BY 'user1';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysql> CREATE USER user1@'localhost' IDENTIFIED BY 'user1'' at line 1
+mysql> ERROR 1819 (HY000): Your password does not satisfy the current policy requirements
+    -> mysql> CREATE USER user1@'localhost' IDENTIFIED BY 'user1';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ERROR 1819 (HY000): Your password does not satisfy the current policy requiremen' at line 1
+mysql> ERROR 1819 (HY000): Your password does not satisfy the current policy requirements
+    -> mysql> 
+    -> 
+    -> 
+    -> 
+    -> 
+    -> 
+    -> 
+    -> 
+    -> 
+    -> 
+[1]+  Stopped                 sudo mysql -u root -p
+user@user-H410M-H-V2:~$ sudo mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 8.0.41-0ubuntu0.22.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> CREATE USER user1@'localhost' IDENTIFIED BY 'User@1';
+ERROR 1819 (HY000): Your password does not satisfy the current policy requirements
+mysql> CREATE USER user1@'localhost' IDENTIFIED BY 'User@123';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE USER user1@'localhost' IDENTIFIED BY 'User2@123';
+ERROR 1396 (HY000): Operation CREATE USER failed for 'user1'@'localhost'
+mysql> CREATE USER user2@'localhost' IDENTIFIED BY 'User2@123';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> use INVOICE;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> SHOW TABLES;
++-------------------+
+| Tables_in_INVOICE |
++-------------------+
+| Customer          |
+| Invoice_item      |
+| Invoice_master    |
+| NIHAL             |
+| Product           |
++-------------------+
+5 rows in set (0.01 sec)
+
+mysql> GRANT SELECT,INSERT on Customer to 'user1@'localhost';
+    '> ^C
+mysql> GRANT SELECT,INSERT on INVOICE.Customer to 'user1@'localhost';
+    '> 
+[2]+  Stopped                 sudo mysql -u root -p
+user@user-H410M-H-V2:~$ sudo mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 12
+Server version: 8.0.41-0ubuntu0.22.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> grant select,insert on INVOICE.Customer to user1@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> grant update,delete on INVOICE.Customer to user2@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show grants for 'user1@localhost';
+ERROR 1141 (42000): There is no such grant defined for user 'user1@localhost' on host '%'
+mysql> show grants for user1@'localhost';
++---------------------------------------------------------------------+
+| Grants for user1@localhost                                          |
++---------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `user1`@`localhost`                           |
+| GRANT SELECT, INSERT ON `INVOICE`.`Customer` TO `user1`@`localhost` |
++---------------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> show grants for user2@'localhost';
++---------------------------------------------------------------------+
+| Grants for user2@localhost                                          |
++---------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `user2`@`localhost`                           |
+| GRANT UPDATE, DELETE ON `INVOICE`.`Customer` TO `user2`@`localhost` |
++---------------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> revoke delete on INVOICE.* from user2@'localhost';
+ERROR 1141 (42000): There is no such grant defined for user 'user2' on host 'localhost'
+mysql> grant update,delete on INVOICE.* to user2@'localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> revoke delete on INVOICE.* from user2@'localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> revoke delete on INVOICE.* from user2@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show grants for user2@'localhost';
++---------------------------------------------------------------------+
+| Grants for user2@localhost                                          |
++---------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `user2`@`localhost`                           |
+| GRANT UPDATE ON `INVOICE`.* TO `user2`@`localhost`                  |
+| GRANT UPDATE, DELETE ON `INVOICE`.`Customer` TO `user2`@`localhost` |
++---------------------------------------------------------------------+
+3 rows in set (0.01 sec)
+
+mysql> grant update,delete on INVOICE.* to user2@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show grants for user2@'localhost';
++---------------------------------------------------------------------+
+| Grants for user2@localhost                                          |
++---------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `user2`@`localhost`                           |
+| GRANT UPDATE, DELETE ON `INVOICE`.* TO `user2`@`localhost`          |
+| GRANT UPDATE, DELETE ON `INVOICE`.`Customer` TO `user2`@`localhost` |
++---------------------------------------------------------------------+
+3 rows in set (0.00 sec)
+
+mysql> revoke delete on INVOICE.* from user2@'localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show grants for user2@'localhost';
++---------------------------------------------------------------------+
+| Grants for user2@localhost                                          |
++---------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `user2`@`localhost`                           |
+| GRANT UPDATE ON `INVOICE`.* TO `user2`@`localhost`                  |
+| GRANT UPDATE, DELETE ON `INVOICE`.`Customer` TO `user2`@`localhost` |
++---------------------------------------------------------------------+
+3 rows in set (0.00 sec)
+
+mysql> revoke delete on INVOICE.Customer from user2@'localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show grants for user2@'localhost';
++-------------------------------------------------------------+
+| Grants for user2@localhost                                  |
++-------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `user2`@`localhost`                   |
+| GRANT UPDATE ON `INVOICE`.* TO `user2`@`localhost`          |
+| GRANT UPDATE ON `INVOICE`.`Customer` TO `user2`@`localhost` |
++-------------------------------------------------------------+
+3 rows in set (0.00 sec)
+
+mysql> create databse study;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'databse study' at line 1
+mysql> create database study;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use study;
+Database changed
+mysql> create table details(id in primary key,name varchar(100),city varchar(100));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'in primary key,name varchar(100),city varchar(100))' at line 1
+mysql> create table details(id int primary key,name varchar(100),city varchar(100));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insrt into details values(001,linto,koodaranhi);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'insrt into details values(001,linto,koodaranhi)' at line 1
+mysql> insert into details values(001,linto,koodaranhi);
+ERROR 1054 (42S22): Unknown column 'linto' in 'field list'
+mysql> insert into details values(001,'linto','koodaranhi');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into details values(001,'nihal','koodaranhi');
+ERROR 1062 (23000): Duplicate entry '1' for key 'details.PRIMARY'
+mysql> insert into details values(002,'nihal','koodaranhi');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into details values(003,'jesse','mukkam');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into details values(003,'rosh','kalanthodu');
+ERROR 1062 (23000): Duplicate entry '3' for key 'details.PRIMARY'
+mysql> insert into details values(004,'rosh','kalanthodu');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into details values(005,'aswin','mukkam');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from details;
++----+-------+------------+
+| id | name  | city       |
++----+-------+------------+
+|  1 | linto | koodaranhi |
+|  2 | nihal | koodaranhi |
+|  3 | jesse | mukkam     |
+|  4 | rosh  | kalanthodu |
+|  5 | aswin | mukkam     |
++----+-------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select distinct city from details;
++------------+
+| city       |
++------------+
+| koodaranhi |
+| mukkam     |
+| kalanthodu |
++------------+
+3 rows in set (0.00 sec)
+
+mysql> select city from details;
++------------+
+| city       |
++------------+
+| koodaranhi |
+| koodaranhi |
+| mukkam     |
+| kalanthodu |
+| mukkam     |
++------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from details order by name;
++----+-------+------------+
+| id | name  | city       |
++----+-------+------------+
+|  5 | aswin | mukkam     |
+|  3 | jesse | mukkam     |
+|  1 | linto | koodaranhi |
+|  2 | nihal | koodaranhi |
+|  4 | rosh  | kalanthodu |
++----+-------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from details order by name desc;
++----+-------+------------+
+| id | name  | city       |
++----+-------+------------+
+|  4 | rosh  | kalanthodu |
+|  2 | nihal | koodaranhi |
+|  1 | linto | koodaranhi |
+|  3 | jesse | mukkam     |
+|  5 | aswin | mukkam     |
++----+-------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from details where in('mukkam');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'in('mukkam')' at line 1
+mysql> select city from details where in('mukkam',"koodaranhi");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'in('mukkam',"koodaranhi")' at line 1
+mysql> select city from details where in('mukkam'"koodaranhi");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'in('mukkam'"koodaranhi")' at line 1
+mysql> select city from details where in('mukkam'"koodaranhi");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'in('mukkam'"koodaranhi")' at line 1
+mysql> select * from details where name like a;
+ERROR 1054 (42S22): Unknown column 'a' in 'where clause'
+mysql> select * from details where name like 'a';
+Empty set (0.00 sec)
+
+mysql> select * from details where name like 'a%';
++----+-------+--------+
+| id | name  | city   |
++----+-------+--------+
+|  5 | aswin | mukkam |
++----+-------+--------+
+1 row in set (0.01 sec)
+
+mysql> select * from details where name like '%a';
+Empty set (0.00 sec)
+
+mysql> select * from details where name like '_a%';
+Empty set (0.00 sec)
+
+mysql> select * from details where name like '____%';
++----+-------+------------+
+| id | name  | city       |
++----+-------+------------+
+|  1 | linto | koodaranhi |
+|  2 | nihal | koodaranhi |
+|  3 | jesse | mukkam     |
+|  4 | rosh  | kalanthodu |
+|  5 | aswin | mukkam     |
++----+-------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from details where name like '___%';
++----+-------+------------+
+| id | name  | city       |
++----+-------+------------+
+|  1 | linto | koodaranhi |
+|  2 | nihal | koodaranhi |
+|  3 | jesse | mukkam     |
+|  4 | rosh  | kalanthodu |
+|  5 | aswin | mukkam     |
++----+-------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from details where name like '___';
+Empty set (0.00 sec)
+
+mysql> select * from details where name like '____';
++----+------+------------+
+| id | name | city       |
++----+------+------------+
+|  4 | rosh | kalanthodu |
++----+------+------------+
+1 row in set (0.00 sec)
+
+mysql> select name from details where city in('mukkam',"koodaranhi");
++-------+
+| name  |
++-------+
+| linto |
+| nihal |
+| jesse |
+| aswin |
++-------+
+4 rows in set (0.00 sec)
+
+mysql> select * from details where name like '%a%';
++----+-------+------------+
+| id | name  | city       |
++----+-------+------------+
+|  2 | nihal | koodaranhi |
+|  5 | aswin | mukkam     |
++----+-------+------------+
+2 rows in set (0.00 sec)
+
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> select count(*) from details;
++----------+
+| count(*) |
++----------+
+|        5 |
++----------+
+1 row in set (0.01 sec)
+
+mysql> select sum(*) from details;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '*) from details' at line 1
+mysql> select sum(id) from details;
++---------+
+| sum(id) |
++---------+
+|      15 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) from details groupby 'city';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''city'' at line 1
+mysql> select count(*) from details group by 'city';
++----------+
+| count(*) |
++----------+
+|        5 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) from details group by city;
++----------+
+| count(*) |
++----------+
+|        2 |
+|        2 |
+|        1 |
++----------+
+3 rows in set (0.00 sec)
+
+mysql> select count(*) from details group by city having count(*)>1;
++----------+
+| count(*) |
++----------+
+|        2 |
+|        2 |
++----------+
+2 rows in set (0.01 sec)
+
+mysql> 
+
+
